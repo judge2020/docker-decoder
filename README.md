@@ -4,6 +4,8 @@ A tool that decodes and displays the logins from the docker config.json file. Th
 
 Development:
 
+Please don't stage changes to the dist/ folder. This will be done after PR.
+
 ## Project setup
 ```
 npm install

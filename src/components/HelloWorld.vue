@@ -6,7 +6,7 @@
       authentication) and exposes the credentials that are being used for your
       registries.
       <br />
-      This runs entirely on-device - the code is freely available <a href="https://github.com/judge2020/docker-deocder">on GitHub</a> and <a href="https://dns.google/query?name=docker-decoder.judge.sh&rr_type=CNAME&ecs=">is hosted on GitHub Pages</a>.
+      This runs entirely on-device - the code is freely available <a href="https://github.com/judge2020/docker-decoder">on GitHub</a> and <a href="https://dns.google/query?name=docker-decoder.judge.sh&rr_type=CNAME&ecs=">is hosted on GitHub Pages</a>.
     </p>
     <h3>Paste your entire config.json here.</h3>
     <textarea class="config-input" v-model="config" @input="doMorph(config)">
@@ -46,11 +46,16 @@ export default {
       let parsed_config = JSON.parse(this.config);
       for (const [key, value] of Object.entries(parsed_config.auths)) {
         let decoded = atob(value["auth"]);
-        this.auths.push({
+        try {
+          this.auths.push({
           name: key,
           username: decoded.split(':')[0],
           password: decoded.split(':')[1]
         });
+        }
+        catch (e) {
+          console.log(e);
+        }
       }
     },
   },
